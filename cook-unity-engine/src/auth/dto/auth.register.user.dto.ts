@@ -12,5 +12,4 @@ export class AuthRegisterUserDto {
   role: string;
 
   password: string;
-
 }

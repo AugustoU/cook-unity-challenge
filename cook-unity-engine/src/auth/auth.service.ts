@@ -8,10 +8,8 @@ import {
   CognitoUserPool,
 } from 'amazon-cognito-identity-js';
 
-
 @Injectable()
 export class AuthService {
-  
   private readonly userPool: CognitoUserPool;
 
   constructor() {
@@ -38,7 +36,7 @@ export class AuthService {
             Value: role,
           }),
         ],
-        
+
         null,
         (err, result) => {
           if (!result) {
@@ -69,7 +67,7 @@ export class AuthService {
       userCognito.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           console.log(result);
-         resolve({
+          resolve({
             accessToken: result.getIdToken().getJwtToken(),
             refreshToken: result.getRefreshToken().getToken(),
           });
