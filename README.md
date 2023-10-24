@@ -9,3 +9,4 @@ Modules that my backend app must have:
 
 [Quick mockup to outline how the views would be structured in the frontend.](frontend-mockup.drawio.png)
 
+I will start by creating the AuthModule; for this, I will use AWS Cognito.
