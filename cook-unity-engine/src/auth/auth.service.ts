@@ -6,6 +6,7 @@ import {
   CognitoUser,
   CognitoUserAttribute,
   CognitoUserPool,
+  
 } from 'amazon-cognito-identity-js';
 
 @Injectable()
@@ -19,10 +20,11 @@ export class AuthService {
     });
   }
 
-  async registerUser(authRegisterUserDto: AuthRegisterUserDto) {
+  async registerUser(authRegisterUserDto: AuthRegisterUserDto) : Promise<any> {
     const { name, email, password, role } = authRegisterUserDto;
 
     return new Promise((resolve, reject) => {
+    
       this.userPool.signUp(
         email,
         password,
@@ -49,7 +51,7 @@ export class AuthService {
     });
   }
 
-  async authenticateUser(authLoginUserDto: AuthLoginUserDto) {
+  async authenticateUser(authLoginUserDto: AuthLoginUserDto) : Promise<any> {
     const { email, password } = authLoginUserDto;
     const userData = {
       Username: email,
@@ -66,14 +68,12 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       userCognito.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
-          console.log(result);
           resolve({
             accessToken: result.getIdToken().getJwtToken(),
             refreshToken: result.getRefreshToken().getToken(),
           });
         },
         onFailure: (err) => {
-          console.log(err);
           reject(err);
         },
       });
