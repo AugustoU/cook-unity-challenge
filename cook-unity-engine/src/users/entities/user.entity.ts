@@ -1,4 +1,6 @@
+import { Exclude } from "class-transformer";
 import { UserRole } from "src/auth/roles.enum";
+import { MealRating } from "src/meal-ratings/entities/meal-rating.entity";
 import { Meal } from "src/meals/entities/meal.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -8,23 +10,29 @@ class User {
   id: number;
  
   @Column({ unique: true })
+  @Exclude()
   email: string;
  
   @Column()
   name: string;
  
   @Column()
+  @Exclude()
   password: string;
 
   @Column({
     type: "enum",
     enum: UserRole,
   })
+  @Exclude()
   role: UserRole;
 
   
   @OneToMany(() => Meal, (meal) => meal.owner)
   meals: Meal[]
+
+  @OneToMany(() => MealRating, (mealRating) => mealRating.customer)
+  ratings: MealRating
 }
  
 export default User;

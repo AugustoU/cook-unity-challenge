@@ -1,7 +1,13 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class PaginationReponseDto<T> {
+    @ApiProperty()
     data: T[];
+    @ApiProperty()
     page: number;
+    @ApiProperty()
     pageSize: number;
+    @ApiProperty()
     totalItems: number;
 
 

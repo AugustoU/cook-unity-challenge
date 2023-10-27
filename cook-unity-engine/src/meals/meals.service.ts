@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PaginationReponseDto } from 'src/common/dtos/pagination.response.dto';
 import { MealDto } from './dtos/meal.dto';
-import User from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -16,10 +15,10 @@ export class MealsService {
         private readonly usersService: UsersService) { }
 
 
-
     async getAll(page: number = 1, pageSize: number = 10)
-    : Promise<PaginationReponseDto<Meal>> {
+        : Promise<PaginationReponseDto<Meal>> {
         const [data, totalItems] = await this.mealRepository.findAndCount({
+            relations: ['owner'],
             skip: (page - 1) * pageSize,
             take: pageSize,
         });
@@ -27,9 +26,20 @@ export class MealsService {
         return PaginationReponseDto.create(data, page, pageSize, totalItems);
     }
 
-    async getByChefId(page: number = 1, pageSize: number = 10, chefId: number)
-    : Promise<PaginationReponseDto<Meal>> {
+    async getAllWithUserRating(page: number = 1, pageSize: number = 10, customerId: number)
+    : Promise<any> {
+        const queryBuilder = this.mealRepository.createQueryBuilder('meal')
+        .leftJoinAndSelect('meal.ratings', 'rating', 'rating.customerId = :customerId', { customerId })
+        .skip((page - 1) * pageSize)
+        .take(pageSize);
+  
+      return await queryBuilder.getMany();
+}
+
+    async getAllByChefId(page: number = 1, pageSize: number = 10, chefId: number)
+        : Promise<PaginationReponseDto<Meal>> {
         const [data, totalItems] = await this.mealRepository.findAndCount({
+            relations: ['owner'],
             skip: (page - 1) * pageSize,
             take: pageSize,
             where: {
@@ -40,8 +50,13 @@ export class MealsService {
         return PaginationReponseDto.create(data, page, pageSize, totalItems);
     }
 
+    async getById(id: number)
+        : Promise<Meal | undefined> {
+        return await this.mealRepository.findOneBy({ id });
+    }
+
     async create(mealDto: MealDto, ownerId: number)
-    : Promise<Meal> {
+        : Promise<Meal> {
         const owner = await this.usersService.getById(ownerId);
 
         if (!owner) {
@@ -49,6 +64,7 @@ export class MealsService {
         }
 
         const newMeal = new Meal();
+        newMeal.name = mealDto.name;
         newMeal.imageLink = mealDto.imageLink;
         newMeal.description = mealDto.description;
         newMeal.owner = owner;
