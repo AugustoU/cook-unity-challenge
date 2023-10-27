@@ -4,7 +4,7 @@ services:
     image: postgres:latest
     container_name: nest-postgres
     env_file:
-      - .env
+      - ./cook-unity-engine/.env
     ports:
       - "5432:5432"
     volumes:
