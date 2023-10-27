@@ -1,25 +1,30 @@
 import { UserRole } from "src/auth/roles.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Meal } from "src/meals/entities/meal.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 class User {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
  
   @Column({ unique: true })
-  public email: string;
+  email: string;
  
   @Column()
-  public name: string;
+  name: string;
  
   @Column()
-  public password: string;
+  password: string;
 
   @Column({
     type: "enum",
     enum: UserRole,
   })
-  public role: UserRole;
+  role: UserRole;
+
+  
+  @OneToMany(() => Meal, (meal) => meal.owner)
+  meals: Meal[]
 }
  
 export default User;
