@@ -1,6 +1,6 @@
-import { Meal } from "src/meals/entities/meal.entity";
-import User from "src/users/entities/user.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from "typeorm";
+import { Meal } from "../../meals/entities/meal.entity";
+import User from "../../users/entities/user.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 
 @Entity()
 export class MealRating {

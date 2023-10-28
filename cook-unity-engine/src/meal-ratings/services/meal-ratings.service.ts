@@ -1,9 +1,10 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MealRating } from './entities/meal-rating.entity';
+import { MealRating } from '../entities/meal-rating.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from 'src/users/users.service';
-import { MealsService } from 'src/meals/meals.service';
+import { UsersService } from '../../users/services/users.service';
+import { MealsService } from '../../meals/services/meals.service';
+import { MealAverageDto } from '../dtos/meals-average.dto';
 
 @Injectable()
 export class MealRatingsService {
@@ -48,7 +49,8 @@ export class MealRatingsService {
     }
 
 
-    async getAverageRatingPerMeal(chefId: number){
+    async getAverageRatingPerMeal(chefId: number)
+     : Promise<MealAverageDto[]> {
         const query = this.mealRatingRepository
         .createQueryBuilder('meal_rating')
         .leftJoinAndSelect('meal_rating.meal', 'meal')

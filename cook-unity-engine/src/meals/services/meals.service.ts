@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Meal } from './entities/meal.entity';
+import { Meal } from '../entities/meal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaginationReponseDto } from 'src/common/dtos/pagination.response.dto';
-import { MealDto } from './dtos/meal.dto';
-import { UsersService } from 'src/users/users.service';
+import { PaginationReponseDto } from '../../common/dtos/pagination.response.dto';
+import { MealDto } from '../dtos/meal.dto';
+import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class MealsService {

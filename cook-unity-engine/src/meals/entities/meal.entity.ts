@@ -1,5 +1,5 @@
-import { MealRating } from "src/meal-ratings/entities/meal-rating.entity";
-import User from "src/users/entities/user.entity";
+import { MealRating } from "../../meal-ratings/entities/meal-rating.entity";
+import User from "../../users/entities/user.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
