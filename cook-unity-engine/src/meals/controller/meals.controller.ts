@@ -5,8 +5,8 @@ import { PaginationReponseDto } from '../../common/dtos/pagination.response.dto'
 import { PaginationRequestDto } from '../../common/dtos/pagination.request.dto';
 import { MealDto } from '../dtos/meal.dto';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
-import { UserRole } from '../../common/roles.enum';
-import { Roles } from '../../common/role.decorator';
+import { UserRole } from '../../users/enums/roles.enum';
+import { Roles } from '../../auth/role.decorator';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 

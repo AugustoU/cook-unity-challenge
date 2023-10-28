@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { UserRole } from "../../common/roles.enum";
+import { UserRole } from "../enums/roles.enum";
 import { MealRating } from "../../meal-ratings/entities/meal-rating.entity";
 import { Meal } from "../../meals/entities/meal.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";

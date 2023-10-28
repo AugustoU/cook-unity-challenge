@@ -3,6 +3,7 @@ import { AuthRegisterUserDto } from '../dtos/auth.register.user.dto';
 import { AuthLoginUserDto } from '../dtos/auth.login.user.dto';
 import { AuthService } from '../services/auth.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthUserDto } from '../dtos/auth.user.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -10,13 +11,15 @@ export class AuthController {
     constructor(private authService: AuthService) {}
  
     @Post('/register')
-    async register(@Body() authRegisterUserDto: AuthRegisterUserDto) {
+    async register(@Body() authRegisterUserDto: AuthRegisterUserDto)
+    :Promise<AuthUserDto> {
       return await this.authService.registerUser(authRegisterUserDto);
     }
   
     @Post('/login')
     @UsePipes(ValidationPipe)
-    async login(@Body() authLoginUserDto: AuthLoginUserDto) {
+    async login(@Body() authLoginUserDto: AuthLoginUserDto)
+    :Promise<{access_token:string}> {
       return await this.authService.authenticateUser(authLoginUserDto);
     }
 
