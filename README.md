@@ -42,3 +42,4 @@ The solution is structured into modules, where each module has its presentation 
 - **meal-ratings**: Module to manage meal ratings.
 - **meals**: Module to manage meals.
 - **users**: Module to manage users.
+- **chefs**: Module to seach chefs 

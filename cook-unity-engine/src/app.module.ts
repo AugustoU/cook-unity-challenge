@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { MealsModule } from './meals/meals.module';
 import { MealRatingsModule } from './meal-ratings/meal-ratings.module';
+import { ChefsModule } from './chefs/chefs.module';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { MealRatingsModule } from './meal-ratings/meal-ratings.module';
       isGlobal: true,
     }),   
     AuthModule, 
-    UsersModule, DatabaseModule, MealsModule, MealRatingsModule]
+    UsersModule, DatabaseModule, MealsModule, MealRatingsModule, ChefsModule]
 })
 export class AppModule {}

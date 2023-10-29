@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { PaginationReponseDto } from '../../common/dtos/pagination.response.dto';
 import { CreateMealDto } from '../dtos/create.meal.dto';
 import { UsersService } from '../../users/services/users.service';
+import { MealDto } from '../dtos/meal.dto';
 
 @Injectable()
 export class MealsService {
@@ -16,7 +17,7 @@ export class MealsService {
 
 
     async getAll(page: number = 1, pageSize: number = 10)
-        : Promise<PaginationReponseDto<Meal>> {
+        : Promise<PaginationReponseDto<MealDto>> {
         const [data, totalItems] = await this.mealRepository.findAndCount({
             relations: ['owner'],
             skip: (page - 1) * pageSize,
@@ -32,7 +33,7 @@ export class MealsService {
         .leftJoinAndSelect('meal.ratings', 'rating', 'rating.customerId = :customerId', { customerId })
         .skip((page - 1) * pageSize)
         .take(pageSize);
-  
+        
       return await queryBuilder.getMany();
 }
 
