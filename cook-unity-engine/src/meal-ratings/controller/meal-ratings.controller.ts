@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { MealRatingsService } from '../services/meal-ratings.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Roles } from '../../auth/role.decorator';
 import { UserRole } from '../../users/enums/roles.enum';
@@ -30,6 +30,7 @@ export class MealRatingsController {
     @Get('chef-average')
     @UseGuards(RolesGuard)
     @Roles(UserRole.CHEF)
+    @ApiOkResponse({type: MealAverageDto, description: 'List of average ratings per meal for the chef.'})
     getRatingAveragePerMeal(@Req() req) 
     : Promise<MealAverageDto[]> {
         const chefId = req.user.userId;

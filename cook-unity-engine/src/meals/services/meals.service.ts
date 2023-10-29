@@ -3,7 +3,7 @@ import { Meal } from '../entities/meal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PaginationReponseDto } from '../../common/dtos/pagination.response.dto';
-import { MealDto } from '../dtos/meal.dto';
+import { CreateMealDto } from '../dtos/create.meal.dto';
 import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
@@ -55,7 +55,7 @@ export class MealsService {
         return await this.mealRepository.findOneBy({ id });
     }
 
-    async create(mealDto: MealDto, ownerId: number)
+    async create(mealDto: CreateMealDto, ownerId: number)
         : Promise<Meal> {
         const owner = await this.usersService.getById(ownerId);
 

@@ -1,10 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { MealOwnerDto } from "./meal-owner.dto";
 
 export class MealDto{
     @ApiProperty()
-    name: string;
+    id: number
     @ApiProperty()
-    imageLink: string;
+    name: string
     @ApiProperty()
-    description: string;
+    imageLink: string
+    @ApiProperty()
+    description: string
+    @ApiProperty()
+    owner: MealOwnerDto
 }
