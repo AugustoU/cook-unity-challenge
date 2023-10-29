@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) installed on your machine
-- [Docker](https://www.docker.com/) installed (for MySQL Docker container)
+- [Docker](https://www.docker.com/) installed (for Docker containers)
 
 ## Installing & running
 
