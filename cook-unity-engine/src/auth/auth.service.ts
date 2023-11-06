@@ -8,10 +8,16 @@ import {
   CognitoUserPool,
   
 } from 'amazon-cognito-identity-js';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Chef } from 'src/chef/entities/chef.entity';
+import { Repository } from 'typeorm';
+import { UserRole } from './roles.enum';
 
 @Injectable()
 export class AuthService {
   private readonly userPool: CognitoUserPool;
+  @InjectRepository(Chef)
+  private readonly chefRepository: Repository<Chef>
 
   constructor() {
     this.userPool = new CognitoUserPool({
@@ -44,6 +50,15 @@ export class AuthService {
           if (!result) {
             reject(err);
           } else {
+            console.log(result.user);
+            const guid = result.user.getUsername();
+            console.log(guid);
+            if(role == UserRole.CHEF){
+              const newChef = new Chef()
+              newChef.guid = "123";
+              newChef.name = "hola";
+              this.chefRepository.save(newChef);
+            }
             resolve(result.user);
           }
         },

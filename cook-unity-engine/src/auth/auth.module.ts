@@ -3,9 +3,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './roles.guard';
-import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Chef } from 'src/chef/entities/chef.entity';
 
 @Module({
   controllers: [AuthController],
@@ -13,6 +12,9 @@ import { JwtModule } from '@nestjs/jwt';
     AuthService, 
     JwtStrategy,
   ],
-  imports:[ PassportModule ]
+  imports:[ 
+    PassportModule,
+    TypeOrmModule.forFeature([Chef])
+  ]
 })
 export class AuthModule {}
