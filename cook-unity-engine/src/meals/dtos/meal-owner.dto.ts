@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
 
-export class PaginationRequestDto {
+export class MealOwnerDto{
     @ApiProperty()
-    page: number
+    id: number
     @ApiProperty()
-    pageSize: number
+    name: string
 }

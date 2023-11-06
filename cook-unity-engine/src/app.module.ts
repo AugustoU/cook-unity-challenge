@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { ChefModule } from './chef/chef.module';
+import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
-
+import { MealsModule } from './meals/meals.module';
+import { MealRatingsModule } from './meal-ratings/meal-ratings.module';
+import { ChefsModule } from './chefs/chefs.module';
 
 @Module({
   imports: [
@@ -13,13 +13,7 @@ import { DatabaseModule } from './database/database.module';
       envFilePath: '.env',
       isGlobal: true,
     }),   
-    DatabaseModule,
-    AuthModule,
-    ChefModule,
-  ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-  ],
+    AuthModule, 
+    UsersModule, DatabaseModule, MealsModule, MealRatingsModule, ChefsModule]
 })
 export class AppModule {}
